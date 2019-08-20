@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.IO;
 
 namespace ConsoleApp1
@@ -15,20 +16,13 @@ namespace ConsoleApp1
         {
             var objBlobService = new BlobStorageService();
 
-            //var uploads = Path.Combine(env.WebRootPath, "uploads");
-            //bool exists = Directory.Exists(uploads);
-            //if (!exists)
-            //    Directory.CreateDirectory(uploads);
-
-            var fileName = Path.GetFileName(@"C:\Vishal\Repos\ConsoleApp1\Readme.txt");
+            var fileName = Path.GetFileName(@"Readme.txt");
             var fileStream = new FileStream(fileName, FileMode.Create);
-            string mimeType = MimeTypes.GetMimeType(fileName);
+            string mimeType = MimeMapping.MimeUtility.GetMimeMapping(fileName);
             byte[] fileData = new byte[fileName.Length];
 
             objBlobService.UploadFileToBlob(fileName, fileData, mimeType);
 
-
-            //product.ImagePath = objBlobService.UploadFileToBlob(product.File.FileName, fileData, mimeType);
         }
     }
 }
